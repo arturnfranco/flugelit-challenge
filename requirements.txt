@@ -1,2 +1,4 @@
+boto3==1.18.55
 fastapi==0.68.1
 uvicorn==0.15.0
+pylint
