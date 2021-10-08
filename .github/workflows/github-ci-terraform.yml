@@ -1,4 +1,4 @@
-name: Terraform and Terratest
+name: Terraform
 
 on:
   push:
@@ -30,28 +30,9 @@ jobs:
         working-directory: deploy
         run: terraform validate
 
-  terratest:
-    name: Run Go Unit Tests - Terratest
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        shell: bash    
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-go@v1
-        with:
-          go-version: 1.17
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-
-      - name: Download Go Modules
-        working-directory: deploy/test
-        run: go mod download
-
-      - name: Run Go Tests
-        working-directory: deploy/test
-        run: go test -v
+      - name: Terraform Plan
+        working-directory: deploy
+        run: terraform plan
+        env:
+          TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}

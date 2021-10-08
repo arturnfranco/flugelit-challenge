@@ -15,6 +15,7 @@ variable "aws_secret_key" {
 variable "aws_region" {
   type        = string
   description = "AWS region where the resources will be created"
+  default     = "us-east-1"
 }
 
 variable "aws_resources_tags" {
@@ -47,11 +48,13 @@ variable "bucket_name_prefix" {
 variable "default_vpc_id" {
   type        = string
   description = "Default VPC id"
+  default     = "vpc-03c2904d9ca8ebaaf"
 }
 
 variable "subnet_id" {
   type        = string
   description = "ID of a subnet of default VPC"
+  default     = "subnet-0bc26812d38636800"
 }
 
 variable "tcp_protocol" {
