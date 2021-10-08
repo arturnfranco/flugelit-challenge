@@ -170,6 +170,11 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+##################
+##### Packer #####
+##################
+*.pkrvars.hcl
+
 ##############
 ##### Go #####
 ##############
@@ -190,3 +195,8 @@ terraform.rc
 ### Go Patch ###
 /vendor/
 /Godeps/
+
+#################
+### pem files ###
+#################
+*.pem

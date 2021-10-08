@@ -1,13 +1,40 @@
-variable "aws_profile" {
+##### Credentials variables #####
+
+variable "aws_access_key" {
   type        = string
-  description = "AWS profile (credentials) to use to deploy resources"
-  default     = "default"
+  description = "AWS access key used to deploy resources"
 }
+
+variable "aws_secret_key" {
+  type        = string
+  description = "AWS secret access key used to deploy resources"
+}
+
+##### AWS general variables #####
 
 variable "aws_region" {
   type        = string
   description = "AWS region where the resources will be created"
 }
+
+variable "aws_resources_tags" {
+  type        = map(string)
+  description = "Map with the tags for the AWS resources (EC2 instance and S3 bucket)"
+  default = {
+    Name  = "Flugel"
+    Owner = "InfraTeam"
+  }
+}
+
+##### AWS EC2 variables #####
+
+variable "aws_ec2_class" {
+  type        = string
+  description = "AWS EC2 instance class type"
+  default     = "t2.micro"
+}
+
+##### AWS S3 bucket variables #####
 
 variable "bucket_name_prefix" {
   type        = string
@@ -15,17 +42,64 @@ variable "bucket_name_prefix" {
   default     = "flugel-it-bucket-"
 }
 
+##### VPC resources variables #####
+
+variable "default_vpc_id" {
+  type        = string
+  description = "Default VPC id"
+}
+
+variable "subnet_id" {
+  type        = string
+  description = "ID of a subnet of default VPC"
+}
+
+variable "tcp_protocol" {
+  type        = string
+  description = "TCP protocol"
+  default     = "tcp"
+}
+
+variable "all_ips_cidr" {
+  type        = string
+  description = "CIDR block that represents all IPv4 addresses"
+  default     = "0.0.0.0/0"
+}
+
+variable "tcp_start_port" {
+  type        = number
+  description = "First port of TCP port range"
+  default     = 0
+}
+
+variable "tcp_end_port" {
+  type        = number
+  description = "Last port of TCP port range"
+  default     = 65535
+}
+
+variable "ssh_port" {
+  type        = number
+  description = "SSH port"
+  default     = 22
+}
+
+variable "http_port" {
+  type        = number
+  description = "HTTP port"
+  default     = 80
+}
+
+variable "fastapi_port" {
+  type        = number
+  description = "The port on which the app will run"
+  default     = 8000
+}
+
+##### Util variables #####
+
 variable "datetime_format" {
   type        = string
   description = "The datetime format to converts a timestamp"
   default     = "MMDDYYYY-hhmmss"
-}
-
-variable "resources_tags" {
-  type        = map(string)
-  description = "Value of the Name/Owner tags for the AWS resources (EC2 instance and S3 bucket)"
-  default = {
-    Name  = "Flugel"
-    Owner = "InfraTeam"
-  }
 }
