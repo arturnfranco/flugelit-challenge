@@ -1,0 +1,38 @@
+name: Terraform
+
+on:
+  push:
+    branches: [ master, development ]
+  pull_request:
+    branches: [ master, development ]
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        working-directory: deploy
+        run: terraform init
+
+      - name: Terraform Validate
+        working-directory: deploy
+        run: terraform validate
+
+      - name: Terraform Plan
+        working-directory: deploy
+        run: terraform plan
+        env:
+          TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}

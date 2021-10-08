@@ -1,0 +1,13 @@
+[Unit]
+Description=HTTP Service by FastAPI
+After=network.target
+[Service]
+User=ec2-user
+Type=simple
+WorkingDirectory=/home/ec2-user/fastapi
+ExecStart=/usr/bin/python3 /home/ec2-user/fastapi/app/server.py
+Restart=always
+RestartSec=500ms
+StartLimitInterval=0
+[Install]
+WantedBy=multi-user.target
