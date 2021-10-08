@@ -1,4 +1,4 @@
-name: Terraform
+name: Terraform and Terratest
 
 on:
   push:
@@ -26,14 +26,32 @@ jobs:
         working-directory: deploy
         run: terraform init
 
-      - name: Terraform Format
-        working-directory: deploy
-        run: terraform fmt -check
-
       - name: Terraform Validate
         working-directory: deploy
         run: terraform validate
 
-      - name: Terraform Plan
-        working-directory: deploy
-        run: terraform plan
+  terratest:
+    name: Run Go Unit Tests - Terratest
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash    
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.17
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Download Go Modules
+        working-directory: deploy/test
+        run: go mod download
+
+      - name: Run Go Tests
+        working-directory: deploy/test
+        run: go test -v
