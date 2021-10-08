@@ -2,12 +2,12 @@
 
 variable "aws_access_key" {
   type        = string
-  description = "AWS access key used to deploy resources"
+  description = "AWS public credential"
 }
 
 variable "aws_secret_key" {
   type        = string
-  description = "AWS secret access key used to deploy resources"
+  description = "AWS private credential"
 }
 
 ##### AWS general variables #####
@@ -53,7 +53,7 @@ variable "default_vpc_id" {
 
 variable "subnet_id" {
   type        = string
-  description = "ID of a subnet of default VPC"
+  description = "ID of a subnet of AWS default VPC"
   default     = "subnet-0bc26812d38636800"
 }
 
